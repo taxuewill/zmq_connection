@@ -20,9 +20,9 @@ int main () {
 
         //  Wait for next request from client
         socket.recv (&request);
-        std::cout << "Received Hello" << std::endl;
+        // std::cout << "Received Hello" << std::endl;
         std::string strReq = std::string(static_cast<char*>(request.data()), request.size());
-        std::cout << strReq<<std::endl;
+        std::cout<<": " << strReq<<std::endl;
 
         //  Do some 'work'
         sleep(1);
