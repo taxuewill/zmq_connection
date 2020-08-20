@@ -5,30 +5,26 @@
 
 using namespace std;
 
-int main (int argc,char ** argv)
+int main(int argc, char **argv)
 {
     //  Prepare our context and socket
-    zmq::context_t context (1);
-    zmq::socket_t socket (context, ZMQ_REQ);
-
-    std::cout << "Connecting to hello world server…" << std::endl;
     
-    cout<<argc<<endl;
-    if(argc == 2){
+    if (argc == 2)
+    {
+        zmq::context_t context(1);
+        zmq::socket_t socket(context, ZMQ_REQ);
         string content(argv[1]);
-        cout<<content<<endl;
-        socket.connect("tcp://localhost:8088");
+        cout << content << endl;
+        socket.connect("tcp://192.168.1.204:8088");
 
-    zmq::message_t request(content.size());
-    memcpy(request.data(), content.c_str(), content.size());
-    // std::cout << "Sending Hello " << request_nbr << "…" << std::endl;
-    socket.send(request);
+        zmq::message_t request(content.size());
+        memcpy(request.data(), content.c_str(), content.size());
+        socket.send(request);
 
-    //  Get the reply.
-    zmq::message_t reply;
-    socket.recv(&reply);
+        //  Get the reply.
+        zmq::message_t reply;
+        socket.recv(&reply);
     }
-    
 
     return 0;
 }
