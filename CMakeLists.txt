@@ -12,8 +12,8 @@ include_directories(
   ${ZMQ_INCLUDE_DIRS})
 #target_link_libraries (test1 ${CMAKE_THREAD_LIBS_INIT})
 
-add_executable(Reqeust src/request_replay/RequestClient.cpp)
-target_link_libraries(Reqeust ${ZMQ_LIBRARIES})
+add_executable(SendServer src/request_replay/RequestClient.cpp)
+target_link_libraries(SendServer ${ZMQ_LIBRARIES})
 
 
 add_executable(Reply src/request_replay/ReplyServer.cpp)

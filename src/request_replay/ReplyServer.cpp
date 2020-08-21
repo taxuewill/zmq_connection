@@ -6,32 +6,33 @@
 #else
 #include <windows.h>
 
-#define sleep(n)    Sleep(n)
+#define sleep(n) Sleep(n)
 #endif
 
-int main () {
+int main()
+{
     //  Prepare our context and socket
-    zmq::context_t context (1);
-    zmq::socket_t socket (context, ZMQ_REP);
-    socket.bind ("tcp://*:8088");
+    zmq::context_t context(1);
+    zmq::socket_t socket(context, ZMQ_REP);
+    socket.bind("tcp://*:8088");
 
-    while (true) {
+    while (true)
+    {
         zmq::message_t request;
 
         //  Wait for next request from client
-        socket.recv (&request);
+        socket.recv(&request);
         // std::cout << "Received Hello" << std::endl;
-        std::string strReq = std::string(static_cast<char*>(request.data()), request.size());
-        std::cout<<": " << strReq<<std::endl;
+        std::string strReq = std::string(static_cast<char *>(request.data()), request.size());
+        std::cout << strReq << std::endl;
 
         //  Do some 'work'
         sleep(1);
 
         //  Send reply back to client
-        zmq::message_t reply (5);
-        memcpy (reply.data (), "World", 5);
-        socket.send (reply);
+        zmq::message_t reply(5);
+        memcpy(reply.data(), "World", 5);
+        socket.send(reply);
     }
     return 0;
 }
-
